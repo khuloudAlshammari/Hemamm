@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "58F1FB67-6401-41AB-A750-A7A33D66C2C5-removebg-preview.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
