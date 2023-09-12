@@ -14,24 +14,27 @@ struct HomeCompent: View {
         TabView {
             //الانتقال م يشتغل
             ForEach(schoolData.allSchools, id:\.id) { school in
-                ZStack {
-                    Image("ho")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                       
-      
-                    VStack {
-                        Text("❀\(school.name)❀")
-                            .bold()
-                            .padding(.top,30)
+                NavigationLink(destination: SchoolDetailsView(school: school)) {
+                    ZStack {
+                        Image("ho")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                           
+          
+                        VStack {
+                            Text("❀\(school.name)❀")
+                                .bold()
+                                .padding(.top,30)
 
-                        Text(school.desc)
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                            .padding(22)
+                            Text(school.desc)
+                                .foregroundColor(.black)
+                                .multilineTextAlignment(.center)
+                                .padding(22)
+                        }
+
                     }
-
                 }
+                
  
             }
         }

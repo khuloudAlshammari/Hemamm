@@ -8,18 +8,32 @@
 import SwiftUI
 
 struct SchoolDetailsView: View {
+    
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var schoolData :DataSchoolVM
     let school : SchoolData
+    
+    
     //@State var schoolsName : SchoolData
     var body: some View {
         
         
-        VStack(spacing:-10){
+        VStack(spacing:-10) {
             Spacer()
-            Image("login")
-                .resizable()
-                .frame(width: 300,height: 300)
-            ZStack{
+            ZStack(alignment: .topLeading) {
+                Image("login")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                
+                Button("BACK", action: { dismiss() })
+                    .foregroundColor(.white)
+                    .padding(.leading, 12)
+                    .padding(.top, 12)
+            }
+            .frame(maxWidth: .infinity)
+            
+            
+            ZStack {
                 Spacer()
                 Rectangle()
                     .frame(maxWidth: .infinity)
@@ -37,12 +51,14 @@ struct SchoolDetailsView: View {
                             .font(.system(size: 35))
                     }
                     .padding()
+                    
                     Divider()
                         .background(Color("Color"))
                         .frame(maxWidth:.infinity)
+                    
                     HStack{
                         Text(school.desc)
-                        padding(.leading,8)
+                            .padding(.leading,8)
                         
                     }.padding()
                     Divider()
@@ -68,9 +84,11 @@ struct SchoolDetailsView: View {
                     HStack{
                         Text("Website :")
                         Spacer()
-                        Link(school.web, destination: URL(string: school.web)!)
-                        
-                            .foregroundColor(.blue)
+                        if let url = URL(string: school.web) {
+                            Link(school.web, destination: url)
+                                .foregroundColor(.blue)
+                        }
+                            
                     }.padding()
                     
                     Divider()
@@ -80,8 +98,9 @@ struct SchoolDetailsView: View {
                     
                     HStack(spacing:20){
                         Button("Location") {
-                            let url = URL(string: school.lok)!
-                            UIApplication.shared.open(url)
+                            if let url = URL(string: school.lok) {
+                                UIApplication.shared.open(url)
+                            }
                         }
                         .bold()
                         .frame(width: 168,height: 46)
@@ -89,16 +108,19 @@ struct SchoolDetailsView: View {
                         .background(Color( hue: 0.571, saturation: 0.728, brightness: 0.547))
                         .clipShape(Capsule())
                         
-                        Link(destination: URL(string: "https://wa.me/966\(school.number)")!) {
-                            Text("WhatsApp")
-                                .bold()
-                                .frame(width: 168,height: 46)
-                            
-                                .foregroundColor(.white)
-                            
-                                .background(Color( hue: 0.571, saturation: 0.728, brightness: 0.547))
-                                .clipShape(Capsule())
+                        if let url = URL(string: "https://wa.me/966\(school.number)") {
+                            Link(destination: url) {
+                                Text("WhatsApp")
+                                    .bold()
+                                    .frame(width: 168,height: 46)
+                                
+                                    .foregroundColor(.white)
+                                
+                                    .background(Color( hue: 0.571, saturation: 0.728, brightness: 0.547))
+                                    .clipShape(Capsule())
+                            }
                         }
+                        
                     }.padding()
                     
                 }
@@ -117,6 +139,7 @@ struct SchoolDetailsView: View {
                 endPoint: UnitPoint(x: 0.5, y: 1)
             )
         )
+        .toolbar(.hidden, for: .navigationBar)
         
         
     }

@@ -68,7 +68,7 @@ struct ProfileView: View {
                      label: {
                                     HStack(spacing: 200) {
                     
-                                        Text("Cunect us ")
+                                        Text("Contact Us")
                                             .font(.title2)
                     
                                         Button(action: {

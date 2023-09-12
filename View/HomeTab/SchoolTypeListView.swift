@@ -10,6 +10,7 @@ import SwiftUI
 struct SchoolTypeListView: View {
     @EnvironmentObject var schoolData :DataSchoolVM
     let schools : [SchoolData]
+    @Binding var tabBarVisibility: Visibility
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -43,6 +44,13 @@ struct SchoolTypeListView: View {
                   }//scroll
 
         }//vstack
+        .onAppear {
+            tabBarVisibility = .hidden
+        }
+        .onDisappear {
+            tabBarVisibility = .visible
+        }
+        
     }//body
 }//view
 
