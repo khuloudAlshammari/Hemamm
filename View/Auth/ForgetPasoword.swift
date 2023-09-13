@@ -38,7 +38,7 @@ struct ForgetPasoword: View {
 //                        .shadow(color:Color("Color"), radius: 1.5)
                     VStack{
                         HStack{
-                            Text("Forgot Password")
+                            Text(NSLocalizedString("forgetPass", comment: ""))
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
                                 .frame(alignment: .leading)

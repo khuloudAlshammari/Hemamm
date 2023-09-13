@@ -12,9 +12,9 @@ struct OnboardingView: View {
     @Binding var didOnboard: Bool
     
     private let onBordingsteps = [
-        OnBordingStep(image: "onb1", title: "Don't let disability stand in the way of your dreams"),
-        OnBordingStep(image: "onb2", title: "We help you find the best centers and schools"),
-        OnBordingStep(image: "onb3", title: "Together we can create a more inclusive and inclusive world" )
+        OnBordingStep(image: "onb1", title: NSLocalizedString("onb1", comment: "")),
+        OnBordingStep(image: "onb2", title: NSLocalizedString("onb2", comment: "")),
+        OnBordingStep(image: "onb3", title: NSLocalizedString("onb3", comment: ""))
 
     ]
     
@@ -85,7 +85,7 @@ struct OnboardingView: View {
                         }
                     },
                     label: {
-                        Text(currentStep < onBordingsteps.count - 1 ? "Next" : "Get started ")
+                        Text(currentStep < onBordingsteps.count - 1 ? "Next" : "GetStarted")
                             .padding(16)
                             .frame(width: 250 , height: 44)
                             .background(

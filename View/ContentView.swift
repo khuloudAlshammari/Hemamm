@@ -13,7 +13,8 @@ struct ContentView: View {
     @EnvironmentObject var schoolData: DataSchoolVM
     
     @State var didSplash: Bool = false
-    @AppStorage("didOnboard") var didOnboard: Bool = false
+    @State var didOnboard: Bool = false
+//    @AppStorage("didOnboard") var didOnboard: Bool = false
     
     var body: some View {
         Group{

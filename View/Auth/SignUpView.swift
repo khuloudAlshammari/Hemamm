@@ -12,6 +12,7 @@ import FirebaseCore
 struct SignUpView: View {
    
     @EnvironmentObject var authVM: AuthViewModel
+    @EnvironmentObject var schoolData: DataSchoolVM
     
     @Environment(\.dismiss) var dismiss
     
@@ -25,6 +26,7 @@ struct SignUpView: View {
    
 
     @State var shouldNavigateToNextView: Bool = false
+    @State var networking: Bool = false
     var body: some View {
         VStack(spacing: -2) {
             Spacer()
@@ -74,20 +76,25 @@ struct SignUpView: View {
                         .padding()
                     
 
+                    if networking {
+                        ProgressView()
+                    } else {
+                        Button(action: {
+                            signUp(userName: userName, email: email, password: pasoword)
+                        }, label: {
+                            Text("Sign Up")
+                                .bold()
+                                .frame(width: 160,height: 42)
+                            
+                               
+                            
+                        })
+                            .background(Color("Color"))
+                            .foregroundColor(.white)
+                            .cornerRadius(40)
+                            .disabled(networking)
+                    }
                     
-                    Button(action: {
-                        signUp(userName: userName, email: email, password: pasoword)
-                    }, label: {
-                        Text("Sign Up")
-                            .bold()
-                            .frame(width: 160,height: 42)
-                        
-                           
-                        
-                    })
-                        .background(Color("Color"))
-                        .foregroundColor(.white)
-                        .cornerRadius(40)
                     
                     Button(
                         action: {
@@ -131,6 +138,12 @@ struct SignUpView: View {
             } else {
                 // signed ind
                 print("done")
+                networking = true
+                await schoolData.fetchSchool()
+                if let userID = authVM.user?.uid {
+                    await schoolData.fetchFavorites(userID: userID)
+                    networking = false
+                }
             }
         }
     }

@@ -23,11 +23,6 @@ enum SchoolType: String, Codable, CaseIterable {
     }
     
     var title: String {
-        switch self {
-        case .autism: return "Autism"
-        case .intellectual: return "Intellectual"
-        case .audio: return "Audio"
-        case .visual: return "Visual"
-        }
+        NSLocalizedString(self.rawValue, comment: "")
     }
 }

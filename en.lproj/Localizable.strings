@@ -7,19 +7,19 @@
 */
 
 
+"onb1" = "Don't let disability stand in the way of your dreams";
+"onb2" = "We help you find the best centers and schools";
+"onb3" = "Together we can create a more inclusive and inclusive world";
 
-
-"Don't let disability stand in the way of your dreams" = "Don't let disability stand in the way of your dreams";
-"We help you find the best centers and schools" = "We help you find the best centers and schools";
-"Together we can create a more inclusive and inclusive world" = "Together we can create a more inclusive and inclusive world";
 "Next" = "Next";
-"Getstarted" = "Get started";
+"GetStarted" = "Get started";
 "Log into your account" = "Log into your account ";
 "Email" = "Email";
 "Pasoword" = "Pasoword";
 "Sign In" = "Sign In" ;
 "Guest" = "Guest";
 "ForgetPasoword" = "ForgetPasoword";
+"forgetPass" = "Forgot Password";
 "Don’t have an account?" = "Don’t have an account?";
 "Sign Up" = "Sign Up ";
 "Creat New user" = "Creat New user";
@@ -28,11 +28,14 @@
 "Send" = "Send";
 "Back to Log In" = "Back to Log In";
 "Search" = "Search";
-"Autism" = "Autism";
+
+"autism" = "Autism";
+"intellectual" = "Intellectual";
+"audio"= "Audio";
+"visual"= "Visual";
+
 "sections" = "Sections";
-"Intellectual" = "Intellectual";
-"Audio"= "Audio";
-"Visual"= "Visual";
+
 "Name" = "Name";
 "Contact Us" = "Contact Us";
 "ChangeLanguage" = "ChangeLanguage";
@@ -50,7 +53,7 @@
 "Error" = "Error";
 "Continue"= "Continue";
 "?"="?";
-"Forgot Password" = "Forgot Password";
+
 
 
 
