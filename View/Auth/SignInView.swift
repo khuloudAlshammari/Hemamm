@@ -17,6 +17,7 @@ struct SignInView: View {
     @State var Email :String = ""
     @State var pasoword :String = ""
     @State var showAlert : Bool = false
+    @State var networking: Bool = false
     @State var alertMessage : String = ""
     
     var body: some View {
@@ -165,9 +166,11 @@ struct SignInView: View {
             } else {
                 // signed ind
                 print("done")
+                networking = true
                 await schoolData.fetchSchool()
                 if let userID = authVM.user?.uid {
                     await schoolData.fetchFavorites(userID: userID)
+                    networking = false
                 }
             }
         }
