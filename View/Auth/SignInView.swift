@@ -12,6 +12,7 @@ import FirebaseCore
 struct SignInView: View {
     
     @EnvironmentObject var authVM: AuthViewModel
+    @EnvironmentObject var schoolData: DataSchoolVM
     
     @State var Email :String = ""
     @State var pasoword :String = ""
@@ -26,7 +27,8 @@ struct SignInView: View {
                 
                 Image("login")
                     .resizable()
-                    .frame(height: 300)
+                    .aspectRatio(contentMode: .fit)
+                    //.frame(height: 300)
                 
                 
                 ZStack{
@@ -39,7 +41,7 @@ struct SignInView: View {
                     VStack{
                         HStack{
                             Text("Log into your account")
-                                .font(.largeTitle)
+                                .font(.title)
                                 .foregroundColor(.black)
                                 .padding(.top,-50)
                                  
@@ -70,7 +72,7 @@ struct SignInView: View {
                             destination: {
                             ForgetPasoword().navigationBarBackButtonHidden(true)
                         }, label: {
-                            Text("ForgetPasoword ?")
+                            Text("forgetPasoword")
                                 .padding(.leading,230)
                                 .foregroundColor(.black)
                          }
@@ -113,7 +115,7 @@ struct SignInView: View {
                         }
                         
                         
-                        HStack(){
+                        HStack(spacing: 10){
                             Text("Don’t have an account?")
                                 .padding(.trailing,-10)
                             NavigationLink(destination: {
@@ -121,12 +123,15 @@ struct SignInView: View {
                                 SignUpView()
                                     .navigationBarBackButtonHidden(true)
                             }, label: {
-                                Text(" Sign UP")
+                                Text("؟")
+                                    .foregroundColor(.black)
+                                Text("Sign Up")
                                     .foregroundColor(.blue)
                             })
                         
                             
-                        }.padding(.trailing,140)
+                        }
+                        .padding(.trailing,160)
                           
                     }
                 }.padding(.bottom,-34)
@@ -160,6 +165,10 @@ struct SignInView: View {
             } else {
                 // signed ind
                 print("done")
+                await schoolData.fetchSchool()
+                if let userID = authVM.user?.uid {
+                    await schoolData.fetchFavorites(userID: userID)
+                }
             }
         }
         
@@ -172,7 +181,10 @@ struct SignInView: View {
                 showAlert.toggle()
             } else {
                 // signed ind
-                print("done")
+                await schoolData.fetchSchool()
+                if let userID = authVM.user?.uid {
+                    await schoolData.fetchFavorites(userID: userID)
+                }
             }
         }
         

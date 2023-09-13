@@ -9,37 +9,60 @@ import SwiftUI
 
 struct HomeCompent: View {
     @EnvironmentObject var schoolData :DataSchoolVM
+    @State private var selectedTab: Int = 0
+    
+    let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    
+    init() {
+        UIPageControl.appearance().currentPageIndicatorTintColor = .red
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
+        }
     
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             //الانتقال م يشتغل
-            ForEach(schoolData.allSchools, id:\.id) { school in
+            ForEach(0..<schoolData.allSchools.count, id:\.self) { i in
+                let school = schoolData.allSchools[i]
                 NavigationLink(destination: SchoolDetailsView(school: school)) {
                     ZStack {
-                        Image("ho")
+                        Image("77")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                           
+                            .padding(12)
           
                         VStack {
                             Text("❀\(school.name)❀")
                                 .bold()
-                                .padding(.top,30)
+                                .padding(.top,8)
 
                             Text(school.desc)
+                                .padding(.top,8)
                                 .foregroundColor(.black)
                                 .multilineTextAlignment(.center)
-                                .padding(22)
+                                .padding(.horizontal, 22)
                         }
 
                     }
                 }
+                .tag(i)
                 
  
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
+        .tint(.green)
         .foregroundColor(Color("Color"))
+        .onReceive(timer) { input in
+            if selectedTab >= schoolData.allSchools.count {
+                withAnimation {
+                    selectedTab = 0
+                }
+            } else {
+                withAnimation {
+                    selectedTab += 1
+                }
+            }
+        }
 
     }
 }

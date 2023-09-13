@@ -22,7 +22,8 @@ struct ForgetPasoword: View {
         ZStack {
             Image("login")
                               .resizable()
-                              .frame(width: .infinity,height:380)
+                              .aspectRatio(contentMode: .fit)
+                              //.frame(width: .infinity,height:380)
                               .padding(.bottom,120)
           
             VStack {
@@ -31,7 +32,8 @@ struct ForgetPasoword: View {
                    
                     Rectangle()
                         .fill(.white)
-                        .frame(width: .infinity, height: 350)
+                        .frame(maxWidth:.infinity)
+                        .frame(height: 350)
                         .cornerRadius(40)
 //                        .shadow(color:Color("Color"), radius: 1.5)
                     VStack{
@@ -69,7 +71,7 @@ struct ForgetPasoword: View {
                                                          dismiss()
                                                      },
                                                      label: {
-                                                         Text("Back to Log In ?")
+                                                         Text("Back to Log In")
                                                              .foregroundColor(.black)
                                                              //.padding(.trailing,253)
                                                              

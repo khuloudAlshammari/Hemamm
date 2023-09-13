@@ -11,7 +11,10 @@ struct SchoolDetailsView: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var schoolData :DataSchoolVM
+    @EnvironmentObject var authVM :AuthViewModel
     let school : SchoolData
+    @State private var isPresentWebView = false
+    @State private var networking = false
     
     
     //@State var schoolsName : SchoolData
@@ -27,7 +30,7 @@ struct SchoolDetailsView: View {
                 
                 Button("BACK", action: { dismiss() })
                     .foregroundColor(.white)
-                    .padding(.leading, 12)
+                    .padding(.leading, -30)
                     .padding(.top, 12)
             }
             .frame(maxWidth: .infinity)
@@ -47,8 +50,17 @@ struct SchoolDetailsView: View {
                             .font(.title2)
                             .padding(.top,16)
                         Spacer()
-                        Image(systemName: "bookmark")
-                            .font(.system(size: 35))
+                        if let user = authVM.user{
+                            if !user.isAnonymous{
+                                Button {
+                                    toggleFavorite()
+                                } label: {
+                                    Image(systemName: schoolData.isFavorite(name: school.name) ? "bookmark.fill" : "bookmark")
+                                        .font(.system(size: 35))
+                                        .foregroundColor(schoolData.isFavorite(name: school.name) ? .pink : .black)
+                                }
+                                .disabled(networking)
+                            }}
                     }
                     .padding()
                     
@@ -65,11 +77,11 @@ struct SchoolDetailsView: View {
                         .background(Color("Color"))
                     
                     HStack{
-                        Text("Evalution :")
+                        Text("Evalution")
                         Spacer()
                         HStack{
                             if let rating = Int(school.star) {
-                                ForEach(0..<rating) { j in
+                                ForEach(0..<rating, id: \.self) { j in
                                     Image(systemName: "star.fill")
                                         .foregroundColor(.yellow)
                                 }
@@ -82,13 +94,20 @@ struct SchoolDetailsView: View {
                         .background(Color("Color"))
                         .frame(maxWidth:.infinity)
                     HStack{
-                        Text("Website :")
+                        Text("Website")
                         Spacer()
-                        if let url = URL(string: school.web) {
-                            Link(school.web, destination: url)
-                                .foregroundColor(.blue)
-                        }
-                            
+//                        if let url = URL(string: school.web) {
+//                            Link(school.web, destination: url)
+//                                .foregroundColor(.blue)
+//                        }
+                            Button(
+                                action: {
+                                    isPresentWebView.toggle()
+                                },
+                                label: {
+                                    Text("Visit")
+                                }
+                            )
                     }.padding()
                     
                     Divider()
@@ -140,8 +159,43 @@ struct SchoolDetailsView: View {
             )
         )
         .toolbar(.hidden, for: .navigationBar)
+        .sheet(isPresented: $isPresentWebView) {
+            NavigationStack {
+                // 3
+                
+                if let url = URL(string: school.web) {
+                    WebView(url: url)
+
+                        .ignoresSafeArea()
+                        .navigationTitle("Sarunw")
+                        .navigationBarTitleDisplayMode(.inline)
+                }
+
+            }
+        }
+
         
-        
+    }
+    
+    private func toggleFavorite() {
+        Task {
+            if schoolData.isFavorite(name: school.name) {
+                if let favorite = schoolData.getFavorite(name: school.name) {
+                    networking = true
+                    await schoolData.removeFavorite(favorite: favorite)
+                    networking = false
+                }
+                
+            } else {
+                if let userID = authVM.user?.uid {
+                    networking = true
+                    await schoolData.addFavorite(userID: userID, name: school.name)
+                    networking = false
+                }
+                
+            }
+            
+        }
     }
     
 }
@@ -152,3 +206,26 @@ struct SchoolDetailsView: View {
 //    }
 //}
 //ظبطت
+
+
+import WebKit
+
+struct WebView: UIViewRepresentable {
+    // 1
+    let url: URL
+
+    
+    // 2
+    func makeUIView(context: Context) -> WKWebView {
+
+        return WKWebView()
+    }
+    
+    // 3
+    func updateUIView(_ webView: WKWebView, context: Context) {
+
+        let request = URLRequest(url: url)
+        webView.load(request)
+    }
+}
+

@@ -1,0 +1,52 @@
+/* 
+  Localizable.strings
+  FinalprojectHumm
+
+  Created by khuloud alshammari on 27/02/1445 AH.
+  
+*/
+
+
+"onb1" = "لا تدع الاعاقة تقف في طريق احلامك";
+"onb2" = "نحن نساعدك في العثور علئ افضل المراكز";
+"onb3" = "معا يمكننا انشاء عالم اكثر شمولا وشمولية";
+"Next" = "التالي";
+"Getstarted" = "البدء";
+"Log into your account" = "تسجيل الدخول الئ حسابك";
+"Email" = "البريد الالكتروني";
+"Pasoword" = "كلمة المرور";
+"Sign In" = "تسجيل الدخول" ;
+"Guest" = "ضيف";
+"forgetPasoword" = "هل نسيت كلمة المرور";
+"Don’t have an account?" = "ليس لديك حساب";
+"Sign Up" = "التسجيل";
+"Creat New user" = "انشاء مستخدم جديد";
+"UserName" = "اسم المستخدم";
+"Back To Sign In" = "العودة الئ تسجيل الدخول";
+"Send" = "ارسال";
+"Back to Log In" = "العودة الئ تسجيل الدخول";
+"Search" = "بحث";
+"Autism" = "التوحد";
+"sections" = "الاقسام";
+"Intellectual" = "الاعاقة الفكرية";
+"Audio"= "الاعاقة السمعية";
+"Visual"= "الاعاقة البصرية";
+"Name" = "الاسم";
+"Contact Us" = "تواصل معنا";
+"ChangeLanguage" = "تغير اللغة";
+"Edit"= "تعديل";
+"SignOut" = "تسجيل الخروج";
+"Save" = "حفظ";
+"Back" = "العودة";
+"Evalution" = "التقييم";
+"Website" = "الموقع الالكتروني";
+"Visit" = "زيارة";
+"Location" = "الموقع";
+"WhatsApp" = "الواتساب" ;
+"Sarunw" = "اظهار";
+"BACK"= "العودة";
+"Error"= "خطاء";
+"Continue"= "استمر";
+;"؟" = "?"
+"Forgot Password" = "نسيت كلمة المرور";
+

@@ -14,59 +14,39 @@ enum Tab {
 }
 
 struct TabBarView: View {
+    
+    @EnvironmentObject var authVM: AuthViewModel
     //  @EnvironmentObject var schoolData :DataSchoolVM
     
     @State private var selectedTab: Tab = .home
     
     var body: some View {
-//        VStack {
-//            switch selectedTab {
-//            case .home: HomeView()
-//            case .myList: MyList()
-//            case .account: ProfileView()
-//            }
-//            Divider()
-//            HStack {
-//                Button {
-//                    selectedTab = .home
-//                } label: {
-//                    Image(systemName: "house.fill")
-//                }
-//
-//                Button {
-//                    selectedTab = .myList
-//                } label: {
-//                    Image(systemName: "house.fill")
-//                }
-//
-//                Button {
-//                    selectedTab = .account
-//                } label: {
-//                    Image(systemName: "house.fill")
-//                }
-//
-//            }
-//        }
-        NavigationView {
-            TabView {
-                // vm: DataSchoolVM()
-                HomeView()
-                    .tabItem {
-                        Image(systemName: "house.fill")
+        if let user = authVM.user {
+            NavigationView {
+                TabView {
+                    // vm: DataSchoolVM()
+                    HomeView()
+                        .tabItem {
+                            Image(systemName: "house.fill")
+                        }
+                    
+                    if !user.isAnonymous {
+                        MyListView()
+                            .tabItem{
+                                Image(systemName: "bookmark")
+                            }
                     }
+                    
 
-                MyList()
-                    .tabItem{
-                        Image(systemName: "bookmark")
-                    }
-
-                ProfileView()
-                    .tabItem{
-                        Image(systemName: "person.crop.circle")
-                    }
+                    ProfileView()
+                        .tabItem{
+                            Image(systemName: "person.crop.circle")
+                        }
+                }
             }
+            .accentColor(Color("Color"))
         }
-        .accentColor(Color("Color"))
+        
         
     }
 }

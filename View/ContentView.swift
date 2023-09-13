@@ -33,8 +33,13 @@ struct ContentView: View {
             }
         }
         .task {
-            authVM.checkSignIn()
-            await schoolData.fethSchool()
+            if authVM.checkSignIn() {
+                await schoolData.fetchSchool()
+                if let userID = authVM.user?.uid {
+                    await schoolData.fetchFavorites(userID: userID)
+                }
+            }
+            
         }
     }
 }

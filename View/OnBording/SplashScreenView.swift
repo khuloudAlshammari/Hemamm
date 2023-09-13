@@ -16,10 +16,11 @@ struct SplashScreenView: View {
     
     var body: some View {
         ZStack {
-            Image("splas")
+            Image("kkk")
                 .resizable()
                 .frame(width: 300,height: 300)
-               
+            Spacer()
+          
                 .onAppear {
                   withAnimation(.easeIn(duration: 2)) { self.size = 0
                         self.opacity = 0

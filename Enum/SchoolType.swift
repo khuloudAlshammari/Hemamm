@@ -15,10 +15,10 @@ enum SchoolType: String, Codable, CaseIterable {
     
     var color: Color {
         switch self {
-        case .autism: return .red.opacity(0.8)
-        case .intellectual: return .yellow.opacity(0.8)
-        case .audio: return .blue.opacity(0.8)
-        case .visual: return .green.opacity(0.8)
+        case .autism: return .yellow.opacity(0.8)
+        case .intellectual: return .blue.opacity(0.8)
+        case .audio: return .green.opacity(0.8)
+        case .visual: return .red.opacity(0.8)
         }
     }
     

@@ -24,7 +24,7 @@ struct SchoolTypeListView: View {
                         , label: {
                             ZStack{
 
-                                Image("sc")
+                                Image("77")
                                     .resizable()
                                     .frame(height: 160)
                                     .cornerRadius(12)

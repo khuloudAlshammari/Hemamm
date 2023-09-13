@@ -15,8 +15,8 @@ struct HomeView: View {
     @State private var filteredItems: [SchoolData] = []
     
     private let column = [
-        GridItem(spacing:-12), //R spacing
-        GridItem(spacing:-12)//spacing: 2
+        GridItem(spacing: -12), //R spacing
+        GridItem(spacing: -12) //spacing: 2
     ]
     
     var body: some View {
@@ -29,6 +29,16 @@ struct HomeView: View {
                             $0.name.lowercased().contains(searchText.lowercased())
                         }
                     }
+                if !searchText.isEmpty {
+                    Button {
+                        searchText = ""
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.gray)
+                    }
+                }
+                
+
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
@@ -36,19 +46,19 @@ struct HomeView: View {
             .cornerRadius(12)
             .padding()
             
-            Spacer()
-            
             if searchText.isEmpty {
                 ScrollView {
                     VStack(alignment: .leading) {
                         HomeCompent()
                             .frame(height: 280)
-                        Text("Sections :")
+                            .offset(y: -30)
+//                        .background(.red)
+                        Text("sections")
                             .bold()
 //                                .font(.title)
                             .padding(.leading, 15)
                         
-                        LazyVGrid(columns: column ,spacing:10) {   //C spacing
+                        LazyVGrid(columns: column ,spacing:8) {   //C spacing
                             ForEach(SchoolType.allCases, id: \.self) { type in
                                 NavigationLink(destination: {
                                     let schools = schoolData.allSchools.filter {
@@ -62,7 +72,11 @@ struct HomeView: View {
                                             .background(type.color)
                                             .frame(width: 175, height:135)
                                             .cornerRadius(20)
-                                            .shadow(color: (type.color), radius:  1.4)
+                                            .background {
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(Color(.black), lineWidth: 2)
+                                            }
+                                            //.shadow( radius:  1.0)
                                         Text(type.title)
                                             .bold()
                                             .font(.system(size: 20))
@@ -75,12 +89,13 @@ struct HomeView: View {
                                 
                             }
                         }
+                        Spacer()
                     }
                 }
                 
             } else {
                 ScrollView {
-                    VStack {
+                    VStack(spacing: 0) {
                         ForEach(filteredItems, id: \.id) { school in
                             NavigationLink(
                                 destination: {
@@ -88,17 +103,19 @@ struct HomeView: View {
                                 }
                                 , label: {
                                     ZStack {
-                                        Image("sc")
+                                        Image("77")
                                             .resizable()
+                                            .frame(height: 160)
+                                            .cornerRadius(12)
                                             .aspectRatio(contentMode: .fit)
-                                            .frame(height: 164)
-                                            .cornerRadius(26)
-                                            .shadow(radius: 1)
+                                            .padding(12)
+                                            .shadow(color: Color("Color"),radius: 0.5)
                                         
                                         Text(school.name)
                                             .bold()
                                             .foregroundColor(.black)
                                     }
+                                    .padding(.horizontal)
                                 }//lab
                             )
                         }
@@ -107,11 +124,9 @@ struct HomeView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-//            .toolbar(tabBarVisibility, for: .tabBar)
+
         .toolbarBackground(.visible, for: .tabBar)
-//        .onAppear {
-//            tabBarVisibility = .visible
-//        }
+
     }
 }
 

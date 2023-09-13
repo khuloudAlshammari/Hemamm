@@ -41,7 +41,8 @@ struct OnboardingView: View {
                             Image(onBordingsteps[it].image)
                             
                                 .resizable()
-                                .frame(width: 300,height: 300 )
+                                .aspectRatio(contentMode: .fit)
+                               // .frame(width: 300,height: 300 )
                             
                             Text(onBordingsteps[it].title)
                                 .multilineTextAlignment(.center)

@@ -7,16 +7,20 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 class AuthViewModel: ObservableObject {
     
     @Published public var user: User?
     
-    public func checkSignIn() {
+    public func checkSignIn() -> Bool {
 //        try! Auth.auth().signOut()
 //        return
         if let user = Auth.auth().currentUser {
             self.user = user
+            return true
+        } else {
+            return false
         }
     }
     
@@ -72,10 +76,37 @@ class AuthViewModel: ObservableObject {
     }
     
     @MainActor
+    public func upgrade(userName : String ,email : String, password : String) async -> String? {
+        do {
+            let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+            let result = try await Auth.auth().currentUser?.link(with: credential)
+            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+            changeRequest?.displayName = userName
+            try await changeRequest?.commitChanges()
+            user = result?.user
+            return nil
+        } catch {
+            return error.localizedDescription
+        }
+    }
+    
+    @MainActor
     public func updateDispalyName(name : String) async -> String? {
         do {
             let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
             changeRequest?.displayName = name
+            try await changeRequest?.commitChanges()
+            return nil
+        } catch {
+            return error.localizedDescription
+        }
+    }
+    
+    @MainActor
+    public func updatePhoto(url : URL) async -> String? {
+        do {
+            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+            changeRequest?.photoURL = url
             try await changeRequest?.commitChanges()
             return nil
         } catch {
@@ -90,6 +121,21 @@ class AuthViewModel: ObservableObject {
             return nil
         } catch {
             return error.localizedDescription
+        }
+    }
+    
+    @MainActor
+    public func uploadImage(uiImage : UIImage) async -> URL? {
+        let storageRef = Storage.storage().reference()
+        do {
+            guard let userID = user?.uid else { return nil }
+            let ref = storageRef.child("images/\(userID).jpg")
+            guard let data = uiImage.jpegData(compressionQuality: 0.5) else { return nil }
+            let metadata = try await ref.putDataAsync(data)
+            let url = try await ref.downloadURL()
+            return url
+        } catch {
+            return nil
         }
     }
 }

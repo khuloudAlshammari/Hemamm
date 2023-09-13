@@ -30,7 +30,8 @@ struct SignUpView: View {
             Spacer()
             Image("login")
                 .resizable()
-                .frame(height: 250)
+                .aspectRatio(contentMode: .fit)
+                //.frame(height: 250)
             
             ZStack {
                 Rectangle()
@@ -41,7 +42,7 @@ struct SignUpView: View {
                 VStack{
                     HStack{
                         Text("Creat New user")
-                            .font(.largeTitle)
+                            .font(.title)
                             .foregroundColor(.black)
                             .padding(.trailing,130)
                     }.padding(.top,-18)
@@ -95,7 +96,7 @@ struct SignUpView: View {
                         label: {
                             Text("Back To Sign In")
                                 .foregroundColor(.black)
-                                .padding(.trailing, 253)
+                                .padding(.trailing,200)
                         }
                     )
                     .padding(.leading,12)
