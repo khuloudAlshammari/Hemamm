@@ -16,7 +16,7 @@ It is an application that helps people with disabilities and their families find
 # Built using :
 ` Figma `
 ` SwiftUI`
-` Fairebas`
+` Firebase`
       
          
 
